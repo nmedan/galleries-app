@@ -20,6 +20,11 @@ export default class AuthService {
     delete axios.defaults.headers.common['Authorization']
   }
 
+  register(user) {
+    console.log('nemanja');
+    return axios.post('http://localhost:8000/api/auth/register', user);
+  }
+
   isAuthenticated() {
     return !!window.localStorage.getItem('loginToken')
   }

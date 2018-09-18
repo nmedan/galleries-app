@@ -48,7 +48,7 @@
           this.$emit('userAuthenticated')
           this.$router.push({ name: 'galleries' })
           }).catch(error => {this.error = error.response.data.error})    
-	  }
+	    }
     }     
   }
 </script>
