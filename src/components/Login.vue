@@ -38,16 +38,16 @@
           email: '',
           password: ''
         },
-	    error: ''
+	      error: ''
       }
     },
     methods: {              
       login() {
         authService.login(this.userLogin.email, this.userLogin.password)
-          .then(() => {
-          this.$emit('userAuthenticated')
-          this.$router.push({ name: 'galleries' })
-          }).catch(error => {this.error = error.response.data.error})    
+        .then(() => {
+        this.$emit('userAuthenticated')
+        this.$router.push({ name: 'galleries' })
+        }).catch(error => {this.error = error.response.data.error})    
 	    }
     }     
   }
