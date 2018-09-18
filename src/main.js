@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
+import Galleries from './components/Galleries.vue'
 import { authService } from './services/Auth'
 
 Vue.config.productionTip = false
@@ -10,7 +11,7 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: '/galleries' },
-  { path: '/galleries', name: 'galleries' },
+  { path: '/galleries', component: Galleries, name: 'galleries' },
   { path: '/login', component: Login, name: 'login' },
   { path: '/register', component: Register, name: 'register' }
 ]
