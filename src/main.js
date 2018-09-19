@@ -22,10 +22,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!authService.isAuthenticated() && to.name != 'login' && to.name != 'register') {
-    next('login');
-  }
-  else if (authService.isAuthenticated() && (to.name == 'login' || to.name == 'register')) {
+  if (authService.isAuthenticated() && (to.name == 'login' || to.name == 'register')) {
     next('galleries');
   }
   else {
