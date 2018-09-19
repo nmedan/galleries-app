@@ -1,8 +1,8 @@
 <template>
   <div class="container mt-4">
     <GalleryDetails 
-	  :gallery="gallery"
-	/>
+	    :gallery="gallery"
+	  />
   </div>
 </template>
 

@@ -13,12 +13,7 @@
               </h4>
             </p>
             <p>{{ gallery.description }}</p>                     
-            <p> {{ gallery.created_at }} 
-                by 
-                 <router-link :to="{ name: 'authors-galleries', params: { id: gallery.user.id }}">
-                 {{ gallery.user.first_name }} {{ gallery.user.last_name }} 
-                </router-link>   
-            </p>
+            <p> {{ gallery.created_at }} by {{ gallery.user.first_name }} {{ gallery.user.last_name }}</p>    
             </div>
             <hr/>
        </div>
@@ -36,13 +31,11 @@ export default {
         }
     },
 
-    beforeRouteEnter (to, from, next) {
-      galleries.getAll()
-      .then((response) => {
-        next((vm) => {
-          vm.galleries = response.data
-        })
-      })
-    }
+    created() {
+      if (this.$route.params.id) {
+        galleries.getByAuthor(this.$route.params.id).then(response=>
+        (this.galleries=response.data)).catch(err => console.log(err))
+      }
+    },
 }
 </script>
