@@ -5,7 +5,13 @@
       <div v-for="(gallery, index) in galleries" :key="index">
             <div style="display:inline-block; padding-right:30px;"><img :src="gallery.images[0].image_url"  /></div>
             <div style="display:inline-block; vertical-align:middle">
-            <p><h4>{{ gallery.name }}</h4></p>
+            <p>
+              <h4>
+                <router-link :to="{ name: 'view-gallery', params: { id: gallery.id }}">
+                  {{ gallery.name }}
+                </router-link>             
+              </h4>
+            </p>
             <p>{{ gallery.description }}</p>                     
             <p> {{ gallery.created_at }} by {{ gallery.user.first_name }} {{ gallery.user.last_name }}</p>    
             </div>

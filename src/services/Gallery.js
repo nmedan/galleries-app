@@ -9,6 +9,10 @@ export default class Galleries {
     return axios.get('galleries?filter={"include":["images"]}')
   }
 
+  get(id) {
+    return axios.get(`galleries/${id}?filter={"include":["images"]}`);
+  }
+
 }
 
 export const galleries = new Galleries()
