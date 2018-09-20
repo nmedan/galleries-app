@@ -1,11 +1,17 @@
 <template>
   <div class="container mt-4">
-    <GalleryDetails 
-	    :gallery="gallery"
+    <gallery-details
+	    :gallery="gallery" @galleryDeleted="deleteGallery" :user="user"
 	  />
-    <ImagesCarousel :gallery="gallery"/>
-    <CommentList :gallery="gallery"/>
-    <CommentForm :comment="comment" :gallery="gallery" @commentPosted="setGallery"/>
+    <images-carousel 
+      :gallery="gallery"
+    />
+    <comment-list 
+      :user="user" :gallery="gallery" @commentDeleted="setGallery"
+    />
+    <comment-form 
+      :comment="comment" :gallery="gallery" @commentPosted="setGallery" 
+    />
   </div>
 </template>
 
@@ -15,6 +21,7 @@
   import CommentForm from '../components/CommentForm.vue'
   import CommentList from '../components/CommentList.vue'
   import { galleries } from '../services/Gallery'
+  import { authService } from '../services/Auth'
 
   export default {
     components: {
@@ -33,7 +40,8 @@
 		      images: [],
           comments: []
         },
-        comment: {}
+        comment: {},
+        user: {},
 	    }
 	  },
     
@@ -41,14 +49,24 @@
       if (this.$route.params.id) {
         galleries.get(this.$route.params.id).then(response=>
         (this.gallery=response.data)).catch(err => console.log(err))
+        authService.getUser().then(response=>
+        (this.user=response.data)).catch(err => console.log(err))
       }
     },
 
     methods: {
-        setGallery() {          
+        setGallery() {
+          this.comment={};          
           galleries.get(this.$route.params.id).then(response=>
-         (this.gallery=response.data)).catch(err => console.log(err))
-        }
+          (this.gallery=response.data)).catch(err => console.log(err))
+        },
+
+        deleteGallery(id) {
+          galleries.delete(id)
+         .then(() => {
+          this.$router.push({name: 'galleries'})
+        })
+    }
     }
   }
 </script>

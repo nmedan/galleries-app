@@ -8,9 +8,9 @@
 </template>
 
 <style>
-  @import '/bootstrap/dist/css/bootstrap.css'
-  @import '/bootstrap-vue/dist/bootstrap-vue.css'
+  
 </style>
+
 <script>
   import NavBar from './components/NavBar.vue'
   import { authService } from './services/Auth'

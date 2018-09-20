@@ -26,7 +26,7 @@
           <div class="input-group">
             <input type="text" class="form-control here" v-model="user.email">
           </div>
-		  <p class="text-danger" v-if="errors.email">{{ errors.email[0] }}</p>
+		     <p class="text-danger" v-if="errors.email">{{ errors.email[0] }}</p>
         </div>		
       </div>
       <div class="form-group row">
@@ -35,7 +35,7 @@
           <div class="input-group">
             <input type="password" id="password" name="password" class="form-control here" v-model="user.password">
           </div>
-		  <p class="text-danger" v-if="errors.password">{{ errors.password[0] }}</p>
+		      <p class="text-danger" v-if="errors.password">{{ errors.password[0] }}</p>
         </div>		
       </div>
 	  <div class="form-group row">

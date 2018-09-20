@@ -25,8 +25,16 @@ export default class Galleries {
     return axios.post('galleries', gallery)
   }
 
+  delete(id) {
+    return axios.delete(`galleries/${id}`)    
+  }
+
   addComment(id, comment) {
     return axios.post(`galleries/${id}/comments`, comment);
+  }
+
+  deleteComment(id) {
+    return axios.delete(`delete-comment/${id}`);
   }
 }
 

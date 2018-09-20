@@ -32,6 +32,10 @@ export default class AuthService {
   isAuthenticated() {
     return !!window.localStorage.getItem('loginToken')
   }
+
+  getUser() {
+    return axios.post('http://localhost:8000/api/auth/me');
+  }
 }
 
 export const authService = new AuthService()

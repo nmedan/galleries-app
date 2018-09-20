@@ -8,8 +8,8 @@
           <div class="input-group">
             <input type="text" class="form-control here" v-model="comment.content">
           </div>
+           <p class="text-danger" v-if="errors.content">{{ errors.content[0] }}</p>
         </div>
-        <p class="text-danger" v-if="errors.content">{{ errors.content[0] }}</p>
       </div>
       <div class="form-group row">
         <div>
@@ -26,9 +26,15 @@
   export default {
     props: {     
       comment: {},
-      gallery: {}
+      gallery: {},
+      
     },
-   
+    
+    data () {
+      return {
+        errors: []
+      }
+    },
     
     methods: {   
 	    onSubmit() {
@@ -39,7 +45,7 @@
         galleries.addComment(this.gallery.id, this.comment).
         then(() => {
           this.$emit('commentPosted')
-        });
+        }).catch(error => {this.errors = error.response.data.errors});
 	    }
     }     
   }
