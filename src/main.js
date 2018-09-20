@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import Login from './pages/Login.vue'
@@ -7,10 +8,12 @@ import Galleries from './pages/Galleries.vue'
 import AuthorsGalleries from './pages/AuthorsGalleries.vue'
 import UsersGalleries from './pages/UsersGalleries.vue'
 import ViewGallery from './pages/ViewGallery.vue'
+import GalleryForm from './pages/GalleryForm.vue'
 import { authService } from './services/Auth'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
 
 const routes = [
   { path: '/', redirect: '/galleries' },
@@ -18,6 +21,7 @@ const routes = [
   { path: '/my-galleries', component: UsersGalleries, name: 'my-galleries' },
   { path: '/galleries/:id', component: ViewGallery, name: 'view-gallery' },
   { path: '/authors/:id', component: AuthorsGalleries, name: 'authors-galleries' },
+  { path: '/create', component: GalleryForm, name: 'create' },
   { path: '/login', component: Login, name: 'login' },
   { path: '/register', component: Register, name: 'register' }
 ]

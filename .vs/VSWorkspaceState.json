@@ -4,8 +4,9 @@
     "\\public",
     "\\src",
     "\\src\\components",
+    "\\src\\pages",
     "\\src\\services"
   ],
-  "SelectedNode": "\\src\\components\\Register.vue",
+  "SelectedNode": "\\src\\services\\Gallery.js",
   "PreviewInSolutionExplorer": false
 }

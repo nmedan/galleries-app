@@ -10,7 +10,7 @@ export default class Galleries {
   }
 
   get(id) {
-    return axios.get(`galleries/${id}?filter={"include":["images"]}`);
+    return axios.get(`galleries/${id}?filter={"include":["comments"]}`);
   }
 
   getByAuthor(id) {
@@ -21,6 +21,13 @@ export default class Galleries {
     return axios.get('my-galleries');
   }
 
+  add(gallery) {
+    return axios.post('galleries', gallery)
+  }
+
+  addComment(id, comment) {
+    return axios.post(`galleries/${id}/comments`, comment);
+  }
 }
 
 export const galleries = new Galleries()

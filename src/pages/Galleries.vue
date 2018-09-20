@@ -3,7 +3,7 @@
     <h2>Galleries</h2>   
     <div class="list-group">
       <div v-for="(gallery, index) in galleries" :key="index">
-            <div style="display:inline-block; padding-right:30px;"><img :src="gallery.images[0].image_url"  /></div>
+            <div style="display:inline-block; padding-right:30px;">{{ gallery.images.length }}</div>
             <div style="display:inline-block; vertical-align:middle">
             <p>
               <h4>
