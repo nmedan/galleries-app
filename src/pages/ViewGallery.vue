@@ -10,7 +10,7 @@
       :user="user" :gallery="gallery" @commentDeleted="setGallery"
     />
     <comment-form 
-      :comment="comment" :gallery="gallery" @commentPosted="setGallery" 
+      v-if="isAuthenticated" :comment="comment" :gallery="gallery" @commentPosted="setGallery" 
     />
   </div>
 </template>
@@ -42,6 +42,8 @@
         },
         comment: {},
         user: {},
+        isAuthenticated: authService.isAuthenticated() 
+
 	    }
 	  },
     

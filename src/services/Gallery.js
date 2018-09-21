@@ -22,19 +22,23 @@ export default class Galleries {
   }
 
   getByUser() {
-    return axios.get('my-galleries');
+    return axios.get(`my-galleries`);
   }
 
   add(gallery) {
-    return axios.post('galleries', gallery)
+    return axios.post('galleries', gallery);
   }
 
   update(id, gallery) {
-      return axios.put(`galleries/${id}`, gallery);
+    return axios.put(`galleries/${id}`, gallery);
   }
 
   delete(id) {
-    return axios.delete(`galleries/${id}`)    
+    return axios.delete(`galleries/${id}`);    
+  }
+
+  filter(term) {
+    return axios.get(`filter/${term}`);
   }
 
   addComment(id, comment) {

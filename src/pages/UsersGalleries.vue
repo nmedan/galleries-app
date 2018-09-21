@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-4">
+    <GallerySearch  @termSearched="filterGalleries"/>
     <h2>Galleries</h2>   
     <div v-if="galleries.length" class="list-group">
       <div v-for="(gallery, index) in galleries" :key="index">
@@ -26,8 +27,11 @@
 
 <script>
 import { galleries } from '../services/Gallery'
-
+import GallerySearch from '../components/GallerySearch.vue'
 export default {
+    components: {
+      GallerySearch
+    },
     data() {
         return {
            galleries: []
@@ -41,6 +45,14 @@ export default {
           vm.galleries = response.data
         })
       })
+    },
+
+    methods: { 
+      filterGalleries(term) {
+        this.galleries = this.galleries.filter((gallery) => {
+            return gallery.name.indexOf(term) !== -1;
+        });  
+      }       
     }
 }
 </script>

@@ -1,5 +1,7 @@
 <template>
+  
   <div class="container mt-4">
+    <GallerySearch  @termSearched="filterGalleries"/>
     <h2>Galleries</h2>   
     <div class="list-group">
       <div v-for="(gallery, index) in galleries" :key="index">
@@ -29,8 +31,11 @@
 <script>
 import { galleries } from '../services/Gallery'
 import { authService } from '../services/Auth'
-
+import GallerySearch from '../components/GallerySearch.vue'
 export default {
+    components: {
+      GallerySearch
+    },
     data() {
         return {
            user: {},
@@ -50,6 +55,16 @@ export default {
     created() {
       authService.getUser().then(response=>
       (this.user=response.data)).catch(err => console.log(err))
+    },
+
+    methods: { 
+      filterGalleries(term) {
+        galleries.filter(term).then(response=>
+        (this.galleries=response.data)).then(() => {
+        this.$router.push({ name: 'filter' })
+        }).catch(err => console.log(err))  
+        
+      }     
     }
 
     

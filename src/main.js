@@ -18,6 +18,7 @@ Vue.use(BootstrapVue)
 const routes = [
   { path: '/', redirect: '/galleries' },
   { path: '/galleries', component: Galleries, name: 'galleries' },
+  { path: '/filter', component: Galleries, name: 'filter' },
   { path: '/my-galleries', component: UsersGalleries, name: 'my-galleries' },
   { path: '/galleries/:id', component: ViewGallery, name: 'view-gallery' },
   { path: '/authors/:id', component: AuthorsGalleries, name: 'authors-galleries' },
