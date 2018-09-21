@@ -22,6 +22,7 @@ const routes = [
   { path: '/galleries/:id', component: ViewGallery, name: 'view-gallery' },
   { path: '/authors/:id', component: AuthorsGalleries, name: 'authors-galleries' },
   { path: '/create', component: GalleryForm, name: 'create' },
+  { path: '/edit/:id', component: GalleryForm, name: 'edit' },
   { path: '/login', component: Login, name: 'login' },
   { path: '/register', component: Register, name: 'register' }
 ]

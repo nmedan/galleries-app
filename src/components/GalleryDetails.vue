@@ -6,7 +6,9 @@
     <p>Author: {{ gallery.user.first_name }} {{ gallery.user.last_name }}</p>
     <p>
       Created: {{ gallery.created_at }}
-      <button class="btn-info" v-if="gallery.user.id===user.id" type="submit">Edit</button> 
+      <router-link v-if="gallery.user.id===user.id" :to="{ name: 'edit', params: { id: gallery.id }}">
+        <button class="btn-info" type="button">Edit</button>
+      </router-link>
       <button class="btn-danger" @click="deleteGallery(gallery.id)" v-if="checkUser(gallery.user.id)" type="submit">Delete</button>  
     </p>   
   </div>

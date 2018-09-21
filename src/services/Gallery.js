@@ -6,15 +6,19 @@ export default class Galleries {
   }
 
   getAll() {
-    return axios.get('galleries?filter={"include":["images"]}')
+    return axios.get('galleries')
   }
 
   get(id) {
-    return axios.get(`galleries/${id}?filter={"include":["comments"]}`);
+    return axios.get(`galleries/${id}`);
+  }
+
+  edit(id) {
+      return axios.get(`galleries/edit/${id}`);
   }
 
   getByAuthor(id) {
-    return axios.get(`search/${id}?filter={"include":["images"]}`);
+    return axios.get(`search/${id}`);
   }
 
   getByUser() {
@@ -23,6 +27,10 @@ export default class Galleries {
 
   add(gallery) {
     return axios.post('galleries', gallery)
+  }
+
+  update(id, gallery) {
+      return axios.put(`galleries/${id}`, gallery);
   }
 
   delete(id) {
