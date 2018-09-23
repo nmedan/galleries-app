@@ -9,9 +9,9 @@
 
 export default {
     data() {
-        return {
-            term: ''
-        }
+      return {
+        term: ''
+      }
     },
     methods: {
         filterGalleries() {

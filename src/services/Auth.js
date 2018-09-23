@@ -34,7 +34,7 @@ export default class AuthService {
   }
 
   getUser() {
-    return axios.post('http://localhost:8000/api/auth/me');
+    return axios.post('http://localhost:8000/api/auth/me'); 
   }
 }
 

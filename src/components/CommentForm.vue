@@ -35,10 +35,24 @@
         errors: []
       }
     },
-    
-    methods: {   
+      
+    methods: {  
+      validated() {
+        if (!this.comment.content) {
+          alert('You must enter some text');
+          return false;
+        }
+        else if (this.comment.content.length > 1000) {
+          alert('The text is too long');
+          return false;
+        }
+        return true;
+      },
+      
 	    onSubmit() {
-	      this.addComment();
+        if (this.validated()) {
+	        this.addComment();
+        }
 	    },
 
       addComment() {

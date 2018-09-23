@@ -1,58 +1,62 @@
 <template>
   <div class="container mt-4">
-    <GallerySearch  @termSearched="filterGalleries"/>
-    <h2>Galleries</h2>   
-    <div v-if="galleries.length" class="list-group">
-      <div v-for="(gallery, index) in galleries" :key="index">
-            <div style="display:inline-block; padding-right:30px;"><img :src="gallery.images[0].image_url"  /></div>
-            <div style="display:inline-block; vertical-align:middle">
-            <p>
-              <h4>
-                <router-link :to="{ name: 'view-gallery', params: { id: gallery.id }}">
-                  {{ gallery.name }}
-                </router-link>             
-              </h4>
-            </p>
-            <p>{{ gallery.description }}</p>                     
-            <p> {{ gallery.created_at }} by {{ gallery.user.first_name }} {{ gallery.user.last_name }}</p>    
-            </div>
-            <hr/>
-       </div>       
-    </div>
-    <div v-else>
-      No galleries
-    </div>
+    <gallery-list
+      :galleries="galleries"
+      :allGalleries="allGalleries"
+      :currentPage="currentPage"
+      @moreGalleriesLoaded="loadMore"
+      @galleriesFiltered="filterGalleries"
+    />
   </div>
 </template>
 
 <script>
 import { galleries } from '../services/Gallery'
-import GallerySearch from '../components/GallerySearch.vue'
+import GalleryList from '../components/GalleryList.vue'
 export default {
     components: {
-      GallerySearch
+      GalleryList
     },
     data() {
         return {
-           galleries: []
+          galleries: [],
+          allGalleries: [],
+          currentPage: 1,
+          searchTerm: '',
         }
     },
 
     beforeRouteEnter (to, from, next) {
-      galleries.getByUser()
+      galleries.getByUserAll()
       .then((response) => {
         next((vm) => {
-          vm.galleries = response.data
+          vm.allGalleries = response.data
         })
       })
+    },
+    
+    created() 
+    {
+      galleries.getByUser(this.currentPage).then(response=>
+      (this.galleries=this.galleries.concat(response.data.data)))
     },
 
     methods: { 
       filterGalleries(term) {
-        this.galleries = this.galleries.filter((gallery) => {
-            return gallery.name.indexOf(term) !== -1;
-        });  
-      }       
+         
+      },
+      
+      loadMore() {
+        this.currentPage++;
+        if (!this.searchTerm) { 
+           galleries.getByUser(this.currentPage).then(response=>
+           (this.galleries=this.galleries.concat(response.data.data)))
+        }
+        else {
+          galleries.filter(this.searchTerm, this.currentPage).then(response=>
+          (this.galleries=this.galleries.concat(response.data.data)))
+        }   
+    }
     }
 }
 </script>

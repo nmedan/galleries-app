@@ -37,6 +37,9 @@ router.beforeEach((to, from, next) => {
   if (authService.isAuthenticated() && (to.name == 'login' || to.name == 'register')) {
     next('galleries');
   }
+  else if (!authService.isAuthenticated() && (to.name == 'create' || to.name == 'my-galleries' || to.name=='edit')) {
+      next('login');
+  }
   else {
     next();
   }

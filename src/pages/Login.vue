@@ -41,14 +41,25 @@
 	      error: ''
       }
     },
-    methods: {              
-      login() {
-        authService.login(this.userLogin.email, this.userLogin.password)
-        .then(() => {
-        this.$emit('userAuthenticated')
-        this.$router.push({ name: 'galleries' })
-        }).catch(error => {this.error = error.response.data.error})    
-	    }
+    methods: {         
+     validated() 
+     {
+       if (!this.userLogin.email || !this.userLogin.password) {
+         alert('You must enter your email and password');
+         return false;
+       } 
+       return true;
+     },
+     
+     login() {
+       if (this.validated()) {
+         authService.login(this.userLogin.email, this.userLogin.password)
+         .then(() => {
+         this.$emit('userAuthenticated')
+         this.$router.push({ name: 'galleries' })
+         }).catch(error => {this.error = error.response.data.error}) 
+       }
+	   }
     }     
   }
 </script>

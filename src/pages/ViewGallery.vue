@@ -47,12 +47,22 @@
 	    }
 	  },
     
+    beforeRouteEnter (to, from, next) {
+      authService.getUser()
+      .then((response) => {
+        next((vm) => {
+           vm.user = response.data;
+          
+        })
+       })     
+    },
+    
     created() {
       if (this.$route.params.id) {
         galleries.get(this.$route.params.id).then(response=>
         (this.gallery=response.data)).catch(err => console.log(err))
-        authService.getUser().then(response=>
-        (this.user=response.data)).catch(err => console.log(err))
+      /*  authService.getUser().then(response=>
+        (this.user=response.data)).catch(err => console.log(err))*/
       }
     },
 

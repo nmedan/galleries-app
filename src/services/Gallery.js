@@ -6,7 +6,7 @@ export default class Galleries {
   }
 
   getAll() {
-    return axios.get('galleries')
+      return axios.get('galleries');
   }
 
   get(id) {
@@ -14,14 +14,22 @@ export default class Galleries {
   }
 
   edit(id) {
-      return axios.get(`galleries/edit/${id}`);
+      return axios.get(`edit/${id}`);
   }
 
-  getByAuthor(id) {
-    return axios.get(`search/${id}`);
+  getByAuthor(id, currentPage) {
+    return axios.get(`authors/${id}/${currentPage}`);
+  }
+ 
+  getByAuthorAll(id) {
+    return axios.get(`authors/${id}`)
   }
 
-  getByUser() {
+  getByUser(currentPage) {
+    return axios.get(`my-galleries/${currentPage}`);
+  }
+
+  getByUserAll() {
     return axios.get(`my-galleries`);
   }
 
@@ -37,8 +45,12 @@ export default class Galleries {
     return axios.delete(`galleries/${id}`);    
   }
 
-  filter(term) {
-    return axios.get(`filter/${term}`);
+  filter(term, currentPage) {
+    return axios.get(`filter/${term}/${currentPage}`);
+  }
+
+  paginate(currentPage) {
+      return axios.get(`paginate/${currentPage}`);
   }
 
   addComment(id, comment) {
@@ -46,7 +58,7 @@ export default class Galleries {
   }
 
   deleteComment(id) {
-    return axios.delete(`delete-comment/${id}`);
+    return axios.delete(`galleries/${id}/comments`);
   }
 }
 
