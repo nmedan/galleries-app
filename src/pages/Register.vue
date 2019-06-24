@@ -128,10 +128,13 @@
       },
 
       login(email, password) {
+	    console.log('Nemanja');
         authService.login(email, password)
         .then(() => {
         this.$emit('userAuthenticated')
         this.$router.push({ name: 'galleries' })
+		console.log(data.data.access_token)
+		console.log(data.access_token);
         }).catch(error => {this.error = error.response.data.error})    
 	    }     	  
     }   

@@ -7,7 +7,8 @@ export default class AuthService {
   }
 
   login(email, password) {
-    return axios.post('http://localhost:8000/api/auth/login', {
+	console.log('Nemanja')
+    return axios.post('http://127.0.0.1:8000/api/auth/login', {
       email, password
     }).then(data => {
       window.localStorage.setItem('loginToken', data.data.access_token)
@@ -16,6 +17,7 @@ export default class AuthService {
   }
 
   setAxiosDefaultAuthorizationHeader() {
+	console.log('Nemanja');
     const TOKEN = window.localStorage.getItem('loginToken')
     axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
   }

@@ -1,11 +1,13 @@
 <template>
   <div class="container mt-4">
+    <gallery-search
+	  @termSearched="filterGalleries"
+	/>
     <gallery-list
       :galleries="galleries"
-      :allGalleries="allGalleries"
-      :currentPage="currentPage"
+	  :currentPage="currentPage"
+	  :lastPage="lastPage"
       @moreGalleriesLoaded="loadMore"
-      @galleriesFiltered="filterGalleries"
     />
   </div>
 </template>
@@ -13,50 +15,54 @@
 <script>
 import { galleries } from '../services/Gallery'
 import GalleryList from '../components/GalleryList.vue'
+import GallerySearch from '../components/GallerySearch.vue'
 export default {
     components: {
-      GalleryList
+      GalleryList,
+	  GallerySearch
     },
+	
     data() {
         return {
           galleries: [],
-          allGalleries: [],
-          currentPage: 1,
-          searchTerm: '',
+		  lastPage: 1,
+		  currentPage: 1,
+		  term: ''
         }
-    },
-
-    beforeRouteEnter (to, from, next) {
-      galleries.getByUserAll()
-      .then((response) => {
-        next((vm) => {
-          vm.allGalleries = response.data
-        })
-      })
     },
     
     created() 
     {
+	  galleries.getByUser(this.currentPage).then(response=>
+      (this.lastPage=response.data.last_page))
       galleries.getByUser(this.currentPage).then(response=>
-      (this.galleries=this.galleries.concat(response.data.data)))
+      (this.galleries=response.data.data))
     },
 
     methods: { 
-      filterGalleries(term) {
-         
-      },
-      
       loadMore() {
-        this.currentPage++;
-        if (!this.searchTerm) { 
-           galleries.getByUser(this.currentPage).then(response=>
-           (this.galleries=this.galleries.concat(response.data.data)))
-        }
-        else {
-          galleries.filter(this.searchTerm, this.currentPage).then(response=>
-          (this.galleries=this.galleries.concat(response.data.data)))
-        }   
-    }
+	    this.currentPage++;
+		   if (this.term) {
+		     galleries.filterUsersGalleries(this.term, this.currentPage).then(response=>        
+		     (this.galleries=this.galleries.concat(response.data.data)))
+		   }
+		   else  {
+             galleries.getByUser(this.currentPage).then(response=>        
+		       (this.galleries=this.galleries.concat(response.data.data))
+		     )
+		   }
+      },
+	  
+	  filterGalleries(term) {
+	     this.currentPage = 1;
+	     this.term = term;
+		 galleries.filterUsersGalleries(term, this.currentPage).then(response=>        
+		     (this.lastPage=response.data.last_page)
+		 )
+         galleries.filterUsersGalleries(term, this.currentPage).then(response=>        
+		     (this.galleries=response.data.data)
+		 )
+	  }
     }
 }
 </script>

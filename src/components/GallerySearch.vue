@@ -15,9 +15,8 @@ export default {
     },
     methods: {
         filterGalleries() {
-          if (this.term) {
-            this.$emit('termSearched', this.term);    
-          }               
+		    console.log(this.term);
+            this.$emit('termSearched', this.term);                         
         }
     }
 }

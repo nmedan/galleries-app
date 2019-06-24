@@ -6,7 +6,7 @@
         <label for="name" class="col-2 col-form-label">Name</label>
         <div class="col-4">
           <div class="input-group">
-            <input type="text" class="form-control here" placeholder="Name" v-model="gallery.name">
+            <input type="text" class="form-control here" placeholder="Name" v-model="gallery.name" required minlength="2" maxlength="255">
           </div>
 		  <p class="text-danger" v-if="errors.name">{{ errors.name[0] }}</p>
         </div>		
@@ -139,7 +139,7 @@
            this.editGallery(this.gallery);
          }
        }
-       this.errors = {};
+     
 	   },
 
 	   addUrl() {
@@ -154,7 +154,7 @@
 	      galleries.add(gallery)
         .then(() => {		  
 		    this.$router.push({ name: 'galleries' })         
-        }).catch(error => {this.errors = error.response.data.errors})
+        })
 	   },
      
      editGallery(gallery) {

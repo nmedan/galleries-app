@@ -1,8 +1,6 @@
 <template>
  <div>
-    <GallerySearch  @termSearched="filterGalleries"/>    
-        
-    <div v-if="allGalleries.length" class="list-group">
+    <div v-if="galleries.length" class="list-group">
       <div v-for="(gallery, index) in galleries" :key="index">
             <div style="display:inline-block; padding-right:30px;"><img :src="gallery.images[0].image_url" /></div>
             <div style="display:inline-block; vertical-align:middle">
@@ -43,28 +41,23 @@
   export default {
     props: {
 	  galleries: Array,
-	  allGalleries: Array,
-	  currentPage: Number
-	},
-
-	components: {
-	  GallerySearch
+	  currentPage: Number,
+	  lastPage: Number
 	},
 
 	methods: {
 	  loadMore() {
 	    this.$emit('moreGalleriesLoaded');
 	  },
-
-	  filterGalleries(term) {
-	    this.$emit('galleriesFiltered', term);
-	  }
 	   
+	  filterGalleries() {
+	    this.$emit('galleriesFiltered');	
+	  }
 	},
 
 	computed: {
       toLoadMore() {
-        return Math.ceil(this.allGalleries.length/10) > this.currentPage;
+        return this.currentPage < this.lastPage;
       }
 	}
   }

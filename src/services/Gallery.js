@@ -5,32 +5,36 @@ export default class Galleries {
     axios.defaults.baseURL = 'http://localhost:8000/api/'
   }
 
-  getAll() {
-      return axios.get('galleries');
+  getAll(currentPage) {
+      return axios.get(`galleries/index/${currentPage}`);
+  }
+  
+  filterAllGalleries(term, currentPage) {
+      return axios.get(`galleries/index/${currentPage}/${term}`);
   }
 
   get(id) {
-    return axios.get(`galleries/${id}`);
+    return axios.get(`galleries/details/${id}`);
   }
 
   edit(id) {
       return axios.get(`edit/${id}`);
   }
-
-  getByAuthor(id, currentPage) {
-    return axios.get(`authors/${id}/${currentPage}`);
-  }
  
-  getByAuthorAll(id) {
-    return axios.get(`authors/${id}`)
+  getByAuthor(id, currentPage) {
+    return axios.get(`authors/${id}/${currentPage}`)
+  }
+  
+  filterAuthorsGalleries(id, term, currentPage) {
+    return axios.get(`authors/${id}/${currentPage}/${term}`)
   }
 
   getByUser(currentPage) {
     return axios.get(`my-galleries/${currentPage}`);
   }
-
-  getByUserAll() {
-    return axios.get(`my-galleries`);
+  
+  filterUsersGalleries(term, currentPage) {
+    return axios.get(`my-galleries/${currentPage}/${term}`);
   }
 
   add(gallery) {
@@ -43,14 +47,6 @@ export default class Galleries {
 
   delete(id) {
     return axios.delete(`galleries/${id}`);    
-  }
-
-  filter(term, currentPage) {
-    return axios.get(`filter/${term}/${currentPage}`);
-  }
-
-  paginate(currentPage) {
-      return axios.get(`paginate/${currentPage}`);
   }
 
   addComment(id, comment) {
